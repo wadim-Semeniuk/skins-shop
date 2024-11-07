@@ -1,3 +1,26 @@
+export enum PaymentType {
+  CARD = 'CARD',
+  CRYPTO = 'CRYPTO',
+}
+
+export enum SortOptionValue {
+  ASC = 'ASC',
+  DESC = 'DESC',
+}
+
+export enum PaymentStageValue {
+  METHOD = 'METHOD',
+  DETAILS = 'DETAILS',
+  CONFIRMATION = 'CONFIRMATION',
+  TRANSFER = 'TRANSFER',
+}
+
+export enum TransferStatus {
+  SUCCESS = 'SUCCESS',
+  ERROR = 'ERROR',
+}
+
+
 export interface Skin {
   id: number;
   name: string;
@@ -9,20 +32,10 @@ export interface Skin {
   };
 }
 
-export enum PaymentType {
-  CARD = 'CARD',
-  CRYPTO = 'CRYPTO',
-}
-
-export enum SortOptionValue {
-  ASC = 'asc',
-  DESC = 'desc',
-}
-
 export interface SortOption {
   label: string;
   icon: string;
-  value: SortOptionValue
+  value: SortOptionValue;
 }
 
 export interface Payment {
@@ -42,18 +55,6 @@ export interface PaymentInfoItem {
   title: string;
   value: string;
   visible: boolean;
-}
-
-export enum PaymentStageValue {
-  METHOD = 'METHOD',
-  DETAILS = 'DETAILS',
-  CONFIRMATION = 'CONFIRMATION',
-  TRANSFER ='TRANSFER',
-}
-
-export enum TransferStatus {
-  SUCCESS = 'success',
-  ERROR = 'error',
 }
 
 export interface PaymentStage {

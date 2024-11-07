@@ -2,8 +2,8 @@
   <button
     :class="[
       'button',
-      { [`theme-${theme}`]: !!theme },
-      { 'button-disabled': disabled },
+      { [`button--theme-${theme}`]: !!theme },
+      { 'button--disabled': disabled },
     ]"
     :disabled="disabled"
   >
@@ -25,50 +25,47 @@ defineProps<{
 
 <style lang="scss" scoped>
 .button {
-  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;
   width: 100%;
-  border-radius: 4px;
   padding: 21px 0;
+  gap: 5px;
   border: none;
-  transition: all 0.3s ease-out;
-  font-family: var(--font-family);
+  border-radius: 4px;
+  cursor: pointer;
   font-weight: 500;
   font-size: 16px;
   line-height: 137%;
   letter-spacing: 0.03em;
   text-transform: uppercase;
+  transition: all 0.3s ease-out;
 
-  &.theme-primary {
-    background: var(--accent-100);
+  &--theme-primary {
+    background-color: var(--accent-100);
     color: var(--white-100);
   }
 
-  &.theme-secondary {
-    background: var(--white-100);
+  &--theme-secondary {
+    background-color: var(--white-100);
     color: var(--accent-100);
     padding: 16px 0;
     font-size: 14px;
     line-height: 114%;
-
   }
 
-  &.theme-outline {
-    background: transparent;
+  &--theme-outline {
+    background-color: transparent;
     color: var(--white-60);
-
   }
 
-  &:not(.button-disabled):hover {
+  &:not(&--disabled):hover {
     opacity: 0.9;
     box-shadow: 0 4px 4px 0 var(--black-20);
   }
 }
 
-.button-disabled {
+.button--disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }

@@ -1,30 +1,32 @@
 <template>
-  <div class="wrapper">
-    <img :src="currentState.image" :alt="currentState.title">
-    <p class="title">
+  <section class="transfer-state">
+    <img
+      :src="currentState.image"
+      :alt="currentState.title"
+    />
+    <h2 class="transfer-state__title">
       {{ currentState.title }}
-    </p>
-    <span class="description">
+    </h2>
+    <p class="transfer-state__description">
       {{ currentState.description }}
-    </span>
-  </div>
+    </p>
 
-  <BaseButton
-    theme="primary"
-    :text="currentState.buttonText"
-    @click="currentState.click"
-  />
+    <BaseButton
+      theme="primary"
+      :text="currentState.buttonText"
+      @click="currentState.click"
+    />
+  </section>
 </template>
 
 <script setup lang="ts">
+import { ref, computed } from 'vue';
+import BaseButton from '~/components/common/BaseButton.vue';
 import { type TransferState, TransferStatus } from '~/types/types';
-import { computed, ref } from '#imports';
 
-const props = withDefaults(defineProps<{
+const props = defineProps<{
   status: TransferStatus,
-  isResetForm: boolean,
-}>(), {
-});
+}>();
 
 const emit = defineEmits<{
   (e: 'reset'): void;
@@ -51,29 +53,30 @@ const currentState = computed(() => states.value[props.status]);
 </script>
 
 <style lang="scss" scoped>
-.wrapper {
+.transfer-state {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 15px 0;
-}
+  margin-top: 16px;
 
-.title {
-  font-family: var(--second-family);
-  font-weight: 500;
-  font-size: 24px;
-  line-height: 100%;
-  text-align: center;
-  color: var(--white-100);
-  margin-top: 15px;
-  margin-bottom: 5px;
-}
+  &__title {
+    font-family: var(--second-family), sans-serif;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 100%;
+    text-align: center;
+    color: var(--white-100);
+    margin-top: 15px;
+    margin-bottom: 5px;
+  }
 
-.description {
-  font-family: var(--second-family);
-  font-weight: 400;
-  font-size: 14px;
-  text-align: center;
-  color: var(--white-80);
+  &__description {
+    font-family: var(--second-family), sans-serif;
+    font-size: 14px;
+    text-align: center;
+    color: var(--white-80);
+    margin-top: 0;
+    margin-bottom: 32px;
+  }
 }
 </style>

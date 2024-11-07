@@ -1,36 +1,39 @@
 <template>
-  <div class="detail-wrapper">
+  <section class="detail">
     <WarningMessage
       v-if="paymentType === PaymentType.CARD"
       :message="warningMessage"
     />
+
     <PaymentInfo :payment-info="paymentDetails" />
 
-    <div class="input-wrapper">
+    <div class="detail__input-wrapper">
       <input
         v-model="inputValue"
         :placeholder="placeholder"
         type="text"
-        :class="['input', { 'input-error': errorMessage }]"
+        :class="['detail__input', { 'detail__input--error': errorMessage }]"
         @blur="handleBlur"
         @input="handleInput"
         @keydown.enter="handleBlur"
       />
-      <label class="input-label">{{ placeholder }}</label>
+      <label class="detail__input-label">
+        {{ placeholder }}
+      </label>
       <ErrorMessage
         v-if="errorMessage"
         :message="errorMessage"
       />
     </div>
-  </div>
+  </section>
 </template>
 
 <script setup lang="ts">
+import { ref, computed, watch } from 'vue';
 import { type PaymentInfoItem, PaymentType } from '~/types/types';
-import { computed, ref, watch, } from '#imports';
-import PaymentInfo from '~/components/PaymentForm/PaymentInfo.vue';
-import ErrorMessage from '~/components/ErrorMessage.vue';
-import WarningMessage from '~/components/WarningMessage.vue';
+import PaymentInfo from '~/components/common/BaseInfoCard.vue';
+import ErrorMessage from '~/components/common/ErrorMessage.vue';
+import WarningMessage from '~/components/common/WarningMessage.vue';
 
 const props = defineProps<{
   paymentType: PaymentType,
@@ -45,17 +48,16 @@ const inputValue = ref<string>('');
 const errorMessage = ref<string>('');
 const commission = ref<number>(2);
 
-const isCryptoPaymentType = computed((): boolean => props.paymentType === PaymentType.CRYPTO);
-const placeholder = computed((): string => isCryptoPaymentType.value ? 'Your tether wallet' : 'Your card number');
-const priceWithCommission = computed((): number => props.totalPrice - ((props.totalPrice / 100) * commission.value));
-const cryptoAmount = computed((): number => priceWithCommission.value * 0.98);
-const formattedInputValue = computed((): string => inputValue.value.replace(/\s/g, ''));
+const isCryptoPaymentType = computed((): boolean => (props.paymentType === PaymentType.CRYPTO));
+const placeholder = computed((): string => (isCryptoPaymentType.value ? 'Your tether wallet' : 'Your card number'));
+const priceWithCommission = computed((): number => (props.totalPrice - ((props.totalPrice / 100) * commission.value)));
+const cryptoAmount = computed((): number => (priceWithCommission.value * 0.98));
+const formattedInputValue = computed((): string => (inputValue.value.replace(/\s/g, '')));
 
 const warningMessage = `
   The amount may not be the same as shown on your wallet due to differences in exchange rates.<br><br>
   It may take up to three business days for the bank to credit your payment. Please wait for the transaction.
 `;
-
 
 const paymentDetails = ref<PaymentInfoItem[]>([
   {
@@ -87,16 +89,20 @@ const handleInput = (event: Event) => {
 const validateInput = () => {
   if (isCryptoPaymentType.value) {
     const cryptoPattern = /^[a-zA-Z0-9]{34,42}$/;
+
     if (!cryptoPattern.test(formattedInputValue.value)) {
       errorMessage.value = 'Enter valid tether wallet';
       emit('handle-input-valid', false);
+
       return;
     }
   } else {
     const cardPattern = /^\d{16}$/;
+
     if (!cardPattern.test(formattedInputValue.value)) {
       errorMessage.value = 'Enter valid card number';
       emit('handle-input-valid', false);
+
       return;
     }
   }
@@ -113,65 +119,63 @@ watch(() => props.paymentType, () => {
 });
 </script>
 
-<style scoped>
-.detail-wrapper {
+<style lang="scss" scoped>
+.detail {
   display: flex;
   flex-direction: column;
   gap: 10px;
-}
 
-.input-wrapper {
-  margin: 6px 0;
-  position: relative;
-}
+  &__input-wrapper {
+    position: relative;
+    margin: 6px 0 16px;
+  }
 
-.input {
-  box-sizing: border-box;
-  border: 1px solid var(--white-10);
-  border-radius: 4px;
-  padding: 0 12px;
-  width: 100%;
-  height: 48px;
-  background: var(--black-20);
-  font-family: var(--font-family);
-  font-size: 12px;
-  line-height: 100%;
-  color: var(--white-80);
-}
+  &__input {
+    width: 100%;
+    height: 48px;
+    padding: 0 12px;
+    margin: 6px 0 16px;
+    border-radius: 4px;
+    border: 1px solid var(--white-10);
+    background: var(--black-20);
+    color: var(--white-80);
+    font-size: 12px;
+    line-height: 100%;
 
-.input-error {
-  border-color: var(--red-100);
-}
+    &::placeholder {
+      font-size: 12px;
+      line-height: 100%;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--white-80);
+    }
 
-.input::placeholder {
-  font-size: 12px;
-  line-height: 100%;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  color: var(--white-80);
-}
+    &:placeholder-shown + .detail__input-label {
+      opacity: 0;
+      transform: translateY(10px);
+    }
 
-.input-label {
-  font-family: var(--font-family);
-  position: absolute;
-  top: 8px;
-  left: 12px;
-  transition: 0.2s ease;
-  font-size: 8px;
-  line-height: 100%;
-  pointer-events: none;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  color: var(--white-80);
-}
+    &:not(:placeholder-shown) + .detail__input-label {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-.input:placeholder-shown + .input-label {
-  opacity: 0;
-  transform: translateY(10px);
-}
+    &--error {
+      border-color: var(--red-100);
+    }
 
-.input:not(:placeholder-shown) + .input-label {
-  opacity: 1;
-  transform: translateY(0);
+    &-label {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      font-size: 8px;
+      line-height: 100%;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--white-80);
+      pointer-events: none;
+      transition: all 0.2s ease;
+    }
+  }
 }
 </style>

@@ -1,21 +1,19 @@
 <template>
-  <div>
-    <Header />
-    <div class="container">
-      <SkinList />
-    </div>
-    <Footer />
-  </div>
+  <Header />
+  <main class="page__content">
+    <SkinsList />
+  </main>
+  <Footer />
 </template>
 
 <script setup>
-import SkinList from '~/components/SkinList.vue';
-import Header from '~/components/BaseHeader.vue';
-import Footer from '~/components/BaseFooter.vue';
+import SkinsList from '~/components/SkinsList/SkinsList.vue';
+import Header from '~/components/common/BaseHeader.vue';
+import Footer from '~/components/common/BaseFooter.vue';
 </script>
 
 <style lang="scss" scoped>
-.container {
+.page__content {
   display: flex;
   align-items: flex-start;
   gap: 20px;
@@ -23,3 +21,4 @@ import Footer from '~/components/BaseFooter.vue';
   margin: 20px auto 0;
 }
 </style>
+

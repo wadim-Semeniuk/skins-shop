@@ -1,5 +1,6 @@
 {
-  "name": "nuxt-app",
+  "name": "skins-store",
+  "description": "CS:GO skins store",
   "private": true,
   "type": "module",
   "scripts": {
@@ -11,13 +12,10 @@
   },
   "dependencies": {
     "nuxt": "^3.14.0",
-    "vee-validate": "^4.14.6",
     "vue": "latest",
-    "vue-router": "latest",
-    "yup": "^1.4.0"
+    "vue-router": "latest"
   },
   "devDependencies": {
-    "sass": "^1.80.6",
-    "sass-loader": "^16.0.3"
+    "sass": "^1.80.6"
   }
 }
