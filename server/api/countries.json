@@ -1,0 +1,90 @@
+{
+  "data": [
+    {
+      "title": "United States",
+      "logo": "/icons/flags/us.svg",
+      "id": "US",
+      "payments": [
+        {
+          "id": "Visa",
+          "image": "/icons/payments/master-card-visa.svg",
+          "type": "CARD"
+        },
+        {
+          "id": "PayPal",
+          "image": "/icons/payments/paypal.svg",
+          "type": "CARD"
+        },
+        {
+          "id": "Payoneer",
+          "image": "/icons/payments/payoneer.svg",
+          "type": "CARD"
+        },
+        {
+          "id": "Bitcoin",
+          "image": "/icons/payments/bitcoin.svg",
+          "type": "CRYPTO"
+        },
+        {
+          "id": "TRC-20",
+          "image": "/icons/payments/trc-20.svg",
+          "type": "CRYPTO"
+        },
+        {
+          "id": "ERC-20",
+          "image": "/icons/payments/erc-20.svg",
+          "type": "CRYPTO"
+        }
+      ]
+    },
+    {
+      "title": "Portuguese",
+      "logo": "/icons/flags/pt.svg",
+      "id": "PT",
+      "payments": [
+        {
+          "id": "Visa",
+          "image": "/icons/payments/master-card-visa.svg",
+          "type": "CARD"
+        },
+        {
+          "id": "Bitcoin",
+          "image": "/icons/payments/bitcoin.svg",
+          "type": "CRYPTO"
+        },
+        {
+          "id": "TRC-20",
+          "image": "/icons/payments/trc-20.svg",
+          "type": "CRYPTO"
+        },
+        {
+          "id": "ERC-20",
+          "image": "/icons/payments/erc-20.svg",
+          "type": "CRYPTO"
+        }
+      ]
+    },
+    {
+      "title": "Spanish",
+      "logo": "/icons/flags/es.svg",
+      "id": "ES",
+      "payments": [
+        {
+          "id": "Visa",
+          "image": "/icons/payments/master-card-visa.svg",
+          "type": "CARD"
+        },
+        {
+          "id": "Bitcoin",
+          "image": "/icons/payments/bitcoin.svg",
+          "type": "CRYPTO"
+        },
+        {
+          "id": "TRC-20",
+          "image": "/icons/payments/trc-20.svg",
+          "type": "CRYPTO"
+        }
+      ]
+    }
+  ]
+}
